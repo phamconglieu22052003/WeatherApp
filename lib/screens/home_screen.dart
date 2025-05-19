@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: ListView(
           children: [
-            SizedBox(height: 80),
+            SizedBox(height: 40),
             Center(
               child: Column(
                 children: [
