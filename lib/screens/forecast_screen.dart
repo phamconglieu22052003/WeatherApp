@@ -34,15 +34,56 @@ class _ForecastScreenState extends State<ForecastScreen> {
     }
   }
 
+  List<Color> getGradientByCondition(String condition) {
+    switch (condition.toLowerCase()) {
+      case 'sunny':
+      case 'clear':
+        return [Color(0xFFFFE57F), Color(0xFFFFD54F), Color(0xFFFFCA28)];
+      case 'partly cloudy':
+        return [Color(0xFF6D83F2), Color(0xFF8A9EF7), Color(0xFFA3B2FC)];
+      case 'cloudy':
+      case 'overcast':
+        return [Color(0xFF4C5C68), Color(0xFF66778D), Color(0xFF9AA5B1)];
+      case 'light rain':
+      case 'moderate rain':
+        return [Color(0xFF37517E), Color(0xFF4A6785), Color(0xFF6A89A6)];
+      case 'heavy rain':
+        return [Color(0xFF232526), Color(0xFF414345), Color(0xFF5C5F63)];
+      case 'snow':
+        return [Color(0xFFB5D3E7), Color(0xFFD0E6F5), Color(0xFFF0F8FF)];
+      default:
+        return [
+          Color(0xFF1A2344),
+          Color.fromARGB(255, 125, 32, 142),
+          Colors.purple,
+          Color.fromARGB(255, 151, 44, 170),
+        ];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final backgroundColors = _forecast != null && _forecast!.isNotEmpty
+        ? getGradientByCondition(_forecast![0]['day']['condition']['text'])
+        : [
+      Color(0xFF1A2344),
+      Color.fromARGB(255, 125, 32, 142),
+      Colors.purple,
+      Color.fromARGB(255, 151, 44, 170),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF1A2344),
-        foregroundColor: Colors.white, // thêm dòng này
+        backgroundColor: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white), // màu icon (nút back)
+        foregroundColor: Colors.white, // màu chữ mặc định (nếu có)
         title: Text(
           'Thời tiết 7 ngày tới',
-          style: GoogleFonts.lato(fontSize: 22, fontWeight: FontWeight.bold),
+          style: GoogleFonts.lato(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white, // đảm bảo chữ cũng trắng
+          ),
         ),
       ),
       body: _forecast == null
@@ -52,12 +93,7 @@ class _ForecastScreenState extends State<ForecastScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF1A2344),
-              Color.fromARGB(255, 125, 32, 142),
-              Colors.purple,
-              Color.fromARGB(255, 151, 44, 170),
-            ],
+            colors: backgroundColors,
           ),
         ),
         child: ListView.builder(
@@ -95,14 +131,14 @@ class _ForecastScreenState extends State<ForecastScreen> {
                           style: GoogleFonts.lato(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.black54,
                           ),
                         ),
                         subtitle: Text(
                           '${day['day']['condition']['text']}',
                           style: GoogleFonts.lato(
                             fontSize: 14,
-                            color: Colors.white70,
+                            color: Colors.black54,
                           ),
                         ),
                         trailing: Column(
@@ -114,14 +150,15 @@ class _ForecastScreenState extends State<ForecastScreen> {
                               style: GoogleFonts.lato(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white,
+                                color: Colors.black54,
                               ),
                             ),
                             Text(
                               'Cao nhất: ${day['day']['maxtemp_c'].round()}°C\nThấp nhất: ${day['day']['mintemp_c'].round()}°C',
                               style: GoogleFonts.lato(
                                 fontSize: 10,
-                                color: Colors.white60,
+                                color: Colors.black54,
+
                               ),
                             ),
                           ],
