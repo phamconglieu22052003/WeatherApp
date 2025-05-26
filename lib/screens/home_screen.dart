@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _showCitySelectionDialog() {
+    String _tempCity = ""; // thêm biến tạm
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -94,9 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListTile(title: Text(suggestion['name']));
             },
             onSelected: (city) {
-              setState(() {
-                _city = city['name'];
-              });
+              _tempCity = city['name']; // chỉ lưu tạm, không gọi API
             },
           ),
           actions: [
@@ -109,10 +108,16 @@ class _HomeScreenState extends State<HomeScreen> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                _fetchWeather();
+                if (_tempCity.isNotEmpty) {
+                  setState(() {
+                    _city = _tempCity;
+                  });
+                  _fetchWeather();
+                }
               },
               child: Text("Xác nhận"),
             ),
+
           ],
         );
       },
