@@ -131,14 +131,14 @@ class _ForecastScreenState extends State<ForecastScreen> {
                           style: GoogleFonts.lato(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black54,
+                            color: Colors.white,
                           ),
                         ),
                         subtitle: Text(
                           '${day['day']['condition']['text']}',
                           style: GoogleFonts.lato(
                             fontSize: 14,
-                            color: Colors.black54,
+                            color: Colors.white,
                           ),
                         ),
                         trailing: Column(
@@ -150,14 +150,14 @@ class _ForecastScreenState extends State<ForecastScreen> {
                               style: GoogleFonts.lato(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black54,
+                                color: Colors.white,
                               ),
                             ),
                             Text(
                               'Cao nhất: ${day['day']['maxtemp_c'].round()}°C\nThấp nhất: ${day['day']['mintemp_c'].round()}°C',
                               style: GoogleFonts.lato(
                                 fontSize: 10,
-                                color: Colors.black54,
+                                color: Colors.white,
 
                               ),
                             ),
