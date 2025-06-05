@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 
 class WeatherService {
   final String apiKey =
-      "e893bdcd91254d57939190711250406"; // <--- Thay bằng key riêng nếu cần
+      "e893bdcd91254d57939190711250406";
   final String forecastBaseUrl = 'http://api.weatherapi.com/v1/forecast.json';
   final String searchBaseUrl = 'http://api.weatherapi.com/v1/search.json';
   final String currentWeatherBaseUrl =
